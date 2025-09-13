@@ -1,4 +1,5 @@
 import express from "express";
+<<<<<<< HEAD
 import {
   registerUser,
   loginUser,
@@ -95,4 +96,16 @@ router.get("/me", protect, async (req, res) => {
   }
 });
 
+=======
+import { registerUser, loginUser,getUsers } from "../controllers/authController.js";
+import { protect,adminOnly } from "../middleware/authMiddleware.js";
+
+const router = express.Router();
+
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+
+router.get("/", protect, adminOnly, getUsers);
+
+>>>>>>> 7779c856bd7116de54fee311847d516524e35faf
 export default router;
