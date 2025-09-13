@@ -1,0 +1,11 @@
+import express from "express";
+import { protect } from "../middleware/authMiddleware.js";
+import { createNotification, getNotifications, markAsRead } from "../controllers/notificationController.js";
+
+const router = express.Router();
+
+router.post("/", protect, createNotification); // Admin or backend use
+router.get("/", protect, getNotifications);
+router.put("/read/:id", protect, markAsRead);
+
+export default router;
