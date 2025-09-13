@@ -1,5 +1,4 @@
 import User from "../models/User.js";
-<<<<<<< HEAD
 import Event from "../models/Event.js";
 import Certificate from "../models/certificate.js";
 import Feedback from "../models/feedback.js";
@@ -8,10 +7,6 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import nodemailer from "nodemailer";
 
-=======
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
->>>>>>> 7779c856bd7116de54fee311847d516524e35faf
 
 // Register
 export const registerUser = async (req, res) => {
@@ -69,7 +64,7 @@ export const getUsers = async (req, res) => {
 };
 
 
-<<<<<<< HEAD
+
 // Upgrade a student visitor to participant
 export const upgradeToParticipant = async (req, res) => {
   try {
@@ -202,5 +197,4 @@ export const resetPassword = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-=======
->>>>>>> 7779c856bd7116de54fee311847d516524e35faf
+
