@@ -1,4 +1,5 @@
 import express from "express";
+import { protect } from "../middleware/authMiddleware.js";
 import {
   registerUser,
   loginUser,
@@ -20,7 +21,7 @@ router.post("/login", loginUser);
 router.get("/users", getUsers);
 
 // Upgrade & approval
-router.post("/upgrade", upgradeToParticipant);
+router.post("/upgrade", protect, upgradeToParticipant);
 router.post("/approve-staff/:id", approveStaff);
 
 // Dashboard

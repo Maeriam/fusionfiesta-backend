@@ -1,4 +1,5 @@
 import express from "express";
+import { protect } from "../middleware/authMiddleware.js";
 import {
   getEvents,
   getEventById,
@@ -10,20 +11,43 @@ import {
   submitFeedback,
   updateEventStatus,
   cancelRegistration,
+  editEvent,
+  deleteEvent,
+  getParticipants,
+  addCoOrganizer,
+  removeCoOrganizer,
+  getEventStats,
+  getMyEvents,
+  getDashboardData,
 } from "../controllers/eventController.js";
+
 
 const router = express.Router();
 
 // Event routes
-router.get("/", getEvents);
+// Specific routes first
+router.get("/certificates", protect, getCertificates);
+router.get("/my-events", protect, getMyEvents);
+router.get("/dashboard", protect, getDashboardData); // 👈 new route
+
+// Generic routes with dynamic :id last
 router.get("/:id", getEventById);
-router.post("/", createEvent);
-router.post("/:id/register", registerForEvent);
-router.post("/:id/approve", approveEvent);
-router.post("/certificate", uploadCertificate);
-router.get("/certificates", getCertificates);
-router.post("/feedback", submitFeedback);
-router.patch("/:id/status", updateEventStatus);
-router.delete("/:id/cancel", cancelRegistration);
+router.patch("/:id", protect, editEvent);
+router.delete("/:id", protect, deleteEvent);
+router.get("/:id/participants", protect, getParticipants);
+router.post("/:id/co-organizers", protect, addCoOrganizer);
+router.delete("/:id/co-organizers/:userId", protect, removeCoOrganizer);
+router.get("/:id/stats", protect, getEventStats);
+router.post("/:id/register", protect, registerForEvent);
+router.post("/:id/approve", protect, approveEvent);
+router.patch("/:id/status", protect, updateEventStatus);
+router.delete("/:id/cancel", protect, cancelRegistration);
+
+// Other non-ID routes
+router.post("/", protect, createEvent);    
+router.post("/certificate", protect, uploadCertificate);
+router.post("/feedback", protect, submitFeedback);
+
+
 
 export default router;  // ✅ default export
